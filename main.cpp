@@ -142,7 +142,7 @@ void SHA256Transform(uchar data[64], uint &datalen, uint bitlen[2], uint* state)
 	g = state[6];
 	h = state[7];
 
-	for (i = 0; i < 64; ++i) {
+	for (i = 0; i < 64; ++i) { //compression loop
 		t1 = h + EP1(e) + CH(e, f, g) + InitConst[i] + m[i]; //t1 formula
 		t2 = EP0(a) + MAJ(a, b, c); //t2 formula
 		h = g;
@@ -209,14 +209,14 @@ void SHA256Final(uchar data[64], uint datalen, uint bitlen[2], uint state[8], uc
 	SHA256Transform(data,datalen,bitlen,state);
 
 	for (i = 0; i < 4; ++i) {
-		hash[i] = (state[0] >> (24 - i * 8)) & 0x000000ff; //final transformation
-		hash[i + 4] = (state[1] >> (24 - i * 8)) & 0x000000ff;
-		hash[i + 8] = (state[2] >> (24 - i * 8)) & 0x000000ff;
-		hash[i + 12] = (state[3] >> (24 - i * 8)) & 0x000000ff;
-		hash[i + 16] = (state[4] >> (24 - i * 8)) & 0x000000ff;
-		hash[i + 20] = (state[5] >> (24 - i * 8)) & 0x000000ff;
-		hash[i + 24] = (state[6] >> (24 - i * 8)) & 0x000000ff;
-		hash[i + 28] = (state[7] >> (24 - i * 8)) & 0x000000ff;
+		hash[i] = (state[0] >> (24 - i * 8)) 
+		hash[i + 4] = (state[1] >> (24 - i * 8)) 
+		hash[i + 8] = (state[2] >> (24 - i * 8)) 
+		hash[i + 12] = (state[3] >> (24 - i * 8)) 
+		hash[i + 16] = (state[4] >> (24 - i * 8))
+		hash[i + 20] = (state[5] >> (24 - i * 8)) 
+		hash[i + 24] = (state[6] >> (24 - i * 8)) 
+		hash[i + 28] = (state[7] >> (24 - i * 8))
 	}
 }
 
@@ -232,7 +232,7 @@ void SHA256(char* dataarg) {
 	
 	SHA256Init(data, datalen, bitlen, state); // initialize arrays
 	SHA256Update(data, datalen, bitlen, state, (unsigned char*)dataarg, strLen); //place the input string into array
-	SHA256Final(data, datalen, bitlen, state, hash); //transform string into hashed value
+	SHA256Final(data, datalen, bitlen, state, hash); //transform string into hashed value and store it into array
 
 char s[3];
 	for (int i = 0; i < 32; i++) 
