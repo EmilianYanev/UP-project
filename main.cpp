@@ -195,7 +195,6 @@ void SHA256Final(uchar data[64], uint datalen, uint bitlen[2], uint state[8], uc
 			data[i++] = 0x00; // 0
 
 		SHA256Transform(data,datalen,bitlen,state);
-		memset(data, 0, 56); //fill with 0
 	}
 
 	DBL_INT_ADD(bitlen[0], bitlen[1], datalen * 8);
