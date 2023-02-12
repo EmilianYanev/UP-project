@@ -257,6 +257,7 @@ int main(int argc, char* argv[])
 
 	file.seekg(0, file.end);
 	int size = file.tellg();
+	size = size - 2;
 	file.seekg(0, file.beg);
 
 	char* fileContent = new char[size];
